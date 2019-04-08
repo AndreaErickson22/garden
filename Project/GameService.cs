@@ -62,28 +62,38 @@ namespace Garden.Project
         case "take":
           TakeItem(option);
           break;
+        case "give up":
+          GiveUp();
+          break;
         default:
           System.Console.WriteLine("Not a recognized command.");
           break;
       }
     }
 
+    public void GiveUp()
+    {
+      playing = false;
+    }
     public void Go(string direction)
     {
       System.Console.Clear();
       const string V = "";
-      if (direction == V && CurrentRoom.Name.ToString() == "yard" && (CurrentPlayer.Inventory[0].ToString() != "gnome" || CurrentPlayer.Inventory[1].ToString() != "gnome"))
+      if (direction != V || CurrentRoom.Name.ToString() != "yard" || CurrentPlayer.Inventory[0].ToString() == "gnome" && CurrentPlayer.Inventory[1].ToString() == "gnome")
       {
-        System.Console.WriteLine("You must take the gnome and use it before you may enter the garden.");
-
-      }
-      else if (CurrentRoom.Exits.ContainsKey(direction))
-      {
-        CurrentRoom = CurrentRoom.Exits[direction];
+        if (CurrentRoom.Exits.ContainsKey(direction))
+        {
+          CurrentRoom = CurrentRoom.Exits[direction];
+        }
+        else
+        {
+          System.Console.WriteLine("You cannot go that way");
+        }
       }
       else
       {
-        System.Console.WriteLine("You cannot go that way");
+        System.Console.WriteLine("You must take the gnome and use it before you may enter the garden.");
+
       }
       System.Console.WriteLine(CurrentRoom.Name.ToString());
     }
@@ -201,7 +211,8 @@ namespace Garden.Project
     public void StartGame()
     {
       Console.Clear();
-      System.Console.WriteLine($"Are you ready for an adventure {CurrentPlayer.PlayerName}? enter 'yes' or 'no'");
+      System.Console.WriteLine($"Are you ready for an Adventure {CurrentPlayer.PlayerName}?");
+      System.Console.WriteLine("Enter 'yes' or 'no':");
       string adventureresponse = Console.ReadLine().ToLower();
       if (adventureresponse == "no")
       {
@@ -214,10 +225,12 @@ namespace Garden.Project
       {
         System.Console.WriteLine("The adventure begins!");
         System.Console.WriteLine("You are walking through the lush grass and a gnome appears, you must enter 'take gnome' to proceed");
+        System.Console.WriteLine("What are you going to do?");
         GetUserInput();
 
         while (playing == true)
         {
+
           GetUserInput();
         }
       }
@@ -238,7 +251,8 @@ namespace Garden.Project
         CurrentRoom.Items.Remove(item);
         CurrentPlayer.Inventory.Add(item);
         System.Console.WriteLine($"You now have a {item.Name}.");
-
+        System.Console.WriteLine("Now what do you want to do?");
+        GetUserInput();
       }
       else
       {
@@ -280,9 +294,11 @@ namespace Garden.Project
         GetUserInput();
         Look();
       }
-      if (itemName == "apple" && (CurrentPlayer.Inventory[0].Name.ToString() == "apple") && CurrentRoom.Name.ToString() == "orchard")
+      if (itemName == "apple" && CurrentRoom.Name.ToString() == "orchard")
       {
-        System.Console.WriteLine("You eaten an poisoned apple, your game is over.");
+        System.Console.WriteLine("You have eaten an poisoned apple, your game is over.");
+        CurrentPlayer.Inventory.Remove(usedItem);
+
         playing = false;
       }
 
