@@ -14,7 +14,7 @@ namespace Garden.Project
     public GameService()
     {
     }
-
+    //GET USER INPUT
     public void GetUserInput()
     {
       string input = Console.ReadLine().ToLower();
@@ -28,9 +28,11 @@ namespace Garden.Project
       switch (command)
       {
         case "go":
+        case "g":
           Go(option);
           break;
         case "help":
+        case "h":
           Help();
           break;
         case "inventory":
@@ -38,6 +40,7 @@ namespace Garden.Project
           Inventory();
           break;
         case "look":
+        case "l":
           Look();
           break;
         case "quit":
@@ -45,6 +48,7 @@ namespace Garden.Project
           Quit();
           break;
         case "reset":
+        case "r":
           Reset();
           break;
         case "setup":
@@ -54,23 +58,26 @@ namespace Garden.Project
           StartGame();
           break;
         case "pick":
+        case "p":
           Pick();
           break;
         case "use":
+        case "u":
           UseItem(option);
           break;
         case "take":
+        case "t":
           TakeItem(option);
           break;
         case "give up":
           GiveUp();
           break;
         default:
-          System.Console.WriteLine("Not a recognized command.");
+          System.Console.WriteLine("Sorry Not a Command, Try Again.");
           break;
       }
     }
-
+    //GIVE UP
     public void GiveUp()
     {
       playing = false;
@@ -111,7 +118,7 @@ namespace Garden.Project
       }
 
     }
-
+    //HELP
     public void Help()
     {
       System.Console.WriteLine("----GOAL OF THIS GARDEN GAME----");
@@ -122,7 +129,7 @@ namespace Garden.Project
       System.Console.WriteLine("----How to use the commands----");
       System.Console.WriteLine("To do something in the game you must type a command followed by a space and an option.");
       System.Console.WriteLine("");
-      System.Console.WriteLine("Some example commands are: 'go north', 'take grape', 'use gnome', 'inventory','help', 'pick' and 'quit'.");
+      System.Console.WriteLine("Some example commands are: 'go north', 'take grape' or 't grape', 'use gnome' or 'u gnome', 'i' or 'inventory','help', 'pick' and 'q' or 'quit'.");
       System.Console.WriteLine("");
       System.Console.WriteLine("----How to Navigate----");
       System.Console.WriteLine("Type 'look' to look around the space you are in this will give a description of the area and where you might go next.");
@@ -131,25 +138,22 @@ namespace Garden.Project
       System.Console.WriteLine("Push the enter button on your keyboard to continue the game.");
       GetUserInput();
     }
-
+    //INVENTORY
     public void Inventory()
     {
       System.Console.WriteLine("You currently have the following items in your inventory: ");
       CurrentPlayer.Inventory.ForEach(i =>
       {
         System.Console.WriteLine($"• {i.Name}");
-
-
       });
-
     }
-
+    //LOOK
     public void Look()
     {
       System.Console.WriteLine(CurrentRoom.Description.ToString());
 
     }
-
+    //QUIT
     public void Quit()
     {
       playing = false;
@@ -179,7 +183,7 @@ namespace Garden.Project
       Item gnome = new Item("gnome", "You must do talk with the gnome to enter the garden.");
       Item pebbles = new Item("pebbles", "You can save these or use them to toss into the creek.");
 
-      //ESTABLISH THE RELATIONSHIPS TO THE 
+      //ESTABLISH THE RELATIONSHIPS TO THE OTHER ROOMS
 
 
       yard.AddNearbyRoom("north", garden);
@@ -239,6 +243,7 @@ namespace Garden.Project
         StartGame();
       }
     }
+
     //TAKE ITEM
     public void TakeItem(string itemName)
     {
