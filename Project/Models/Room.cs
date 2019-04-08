@@ -6,14 +6,21 @@ namespace Garden.Project.Models
 {
   public class Room : IRoom
   {
-    private string v1;
-    private string v2;
-
-    public Room(string v1, string v2)
+    public Room(string name, string description)
     {
-      this.v1 = v1;
-      this.v2 = v2;
+      Name = name;
+      Description = description;
+      Items = new List<Item>();
+      Exits = new Dictionary<string, IRoom>();
     }
+    // private string v1;
+    // private string v2;
+
+    // public Room(string v1, string v2)
+    // {
+    //   this.v1 = v1;
+    //   this.v2 = v2;
+    // }
 
     public string Name { get; set; }
     public string Description { get; set; }

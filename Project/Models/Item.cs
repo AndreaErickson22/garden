@@ -5,16 +5,14 @@ namespace Garden.Project.Models
 {
   public class Item : IItem
   {
-    private string v1;
-    private string v2;
 
-    public Item(string v1, string v2)
+    public Item(string name, string description)
     {
-      this.v1 = v1;
-      this.v2 = v2;
+      Name = name;
+      Description = description;
     }
 
-    public string Name { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public string Description { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public string Name { get; set; }
+    public string Description { get; set; }
   }
 }

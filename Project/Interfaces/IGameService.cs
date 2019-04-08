@@ -8,7 +8,7 @@ namespace Garden.Project.Interfaces
 
 
 
-    Room CurrentRoom { get; set; }
+    IRoom CurrentRoom { get; set; }
     Player CurrentPlayer { get; set; }
 
 
@@ -26,6 +26,7 @@ namespace Garden.Project.Interfaces
     void GetUserInput();
 
     #region Console Commands
+    void Pick();
 
     //Stops the application
     void Quit();
